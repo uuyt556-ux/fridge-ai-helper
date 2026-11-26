@@ -1,0 +1,29 @@
+{
+  "id": "./",
+  "name": "냉장고 파먹기 — AI 레시피·장보기 도우미",
+  "short_name": "냉장고AI",
+  "description": "냉장고 사진 한 장으로 오늘 저녁 레시피 3가지와 부족한 재료 장보기 리스트를 만들어 주는 AI 도우미",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0c3b2a",
+  "background_color": "#f2f7f2",
+  "categories": ["food", "lifestyle", "utilities"],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

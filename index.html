@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0c3b2a" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="냉장고AI" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="mobile-web-app-capable" content="yes" />
 <meta name="description" content="냉장고 사진 한 장으로 오늘 저녁 레시피 3가지와 부족한 재료 장보기 리스트를 만들어 주는 AI 도우미" />
+<link rel="manifest" href="./manifest.json" />
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
 <title>냉장고 파먹기 — AI 레시피·장보기 도우미 (MVP)</title>
 <script>
   window.__appErrors = [];
@@ -390,6 +396,18 @@
   /* footer */
   footer{margin:20px 0 6px;padding:14px 4px 0;border-top:1px solid #e2ece5;font-size:10.5px;color:#93a79a;line-height:1.75;text-align:center}
   footer b{color:#6c8175}
+  footer a{color:#6c8175;text-decoration:underline;text-underline-offset:2px}
+
+  /* ============ 설치 안내 배너 (PWA) ============ */
+  .install-banner{position:fixed;left:0;right:0;bottom:calc(80px + env(safe-area-inset-bottom));z-index:65;padding:0 14px;display:none}
+  .install-banner.on{display:block}
+  .install-inner{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:0 14px 34px rgba(18,60,40,.16)}
+  .install-inner .ib-ico{width:34px;height:34px;border-radius:10px;flex:0 0 auto;display:block}
+  .install-inner .ib-txt{flex:1;min-width:0;font-size:11.5px;color:var(--sub);line-height:1.4}
+  .install-inner .ib-txt b{display:block;font-size:13px;color:var(--ink);margin-bottom:1px}
+  .install-inner .ib-btn{flex:0 0 auto;border:0;background:var(--brand);color:#fff;font-weight:700;font-size:12.5px;padding:9px 13px;border-radius:11px;box-shadow:0 6px 14px rgba(15,157,99,.26)}
+  .install-inner .ib-x{flex:0 0 auto;border:0;background:transparent;color:#93a79a;font-size:15px;line-height:1;padding:6px 2px}
+  @media (min-width:960px){ .install-inner{max-width:600px} }
 
   /* toast */
   #toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,16px);z-index:110;display:flex;flex-direction:column;gap:7px;align-items:center;pointer-events:none;width:calc(100% - 32px);max-width:440px}
@@ -624,9 +642,20 @@
 
   <footer>
     <b>냉장고 파먹기 MVP</b> · 사진과 재료는 Google Gemini API로만 전송됩니다.<br />
-    조리 전 재료 상태·유통기한을 꼭 확인하세요. 알레르기 정보는 참고용이며 최종 확인은 사용자 몫입니다.
+    조리 전 재료 상태·유통기한을 꼭 확인하세요. 알레르기 정보는 참고용이며 최종 확인은 사용자 몫입니다.<br />
+    <a href="./privacy.html">개인정보처리방침</a>
   </footer>
 </main>
+
+<!-- ============ 홈 화면 설치 안내 (PWA) ============ -->
+<div class="install-banner" id="installBanner" role="region" aria-label="홈 화면에 앱 설치">
+  <div class="install-inner">
+    <img class="ib-ico" src="./icon-192.png" alt="" width="34" height="34" />
+    <div class="ib-txt" id="installText"><b>냉장고AI를 홈 화면에 설치</b>앱처럼 바로 열고, 인터넷이 느려도 화면이 뜹니다.</div>
+    <button class="ib-btn" id="installBtn" type="button">설치</button>
+    <button class="ib-x" id="installClose" type="button" aria-label="설치 안내 닫기">✕</button>
+  </div>
+</div>
 
 <!-- ============ sticky CTA ============ -->
 <div class="cta-bar">
@@ -1923,6 +1952,98 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
+})();
+</script>
+<!-- ============ PWA: 서비스 워커 등록 · 홈 화면 설치 안내 ============ -->
+<script>
+(function () {
+  'use strict';
+
+  /* 서비스 워커 등록 (오프라인 앱 셸) */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('./sw.js').catch(function () { /* 설치 전이거나 미지원이면 무시 */ });
+    });
+  }
+
+  var DISMISS_KEY = 'fridgeai.installDismissed.v1';
+  var banner = null, btn = null, closeBtn = null, textEl = null;
+  var deferred = null, installed = false;
+
+  function isStandalone() {
+    try {
+      return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+        window.navigator.standalone === true;
+    } catch (e) { return false; }
+  }
+  function isDismissed() {
+    try { return localStorage.getItem(DISMISS_KEY) === '1'; } catch (e) { return false; }
+  }
+  function setDismissed() {
+    try { localStorage.setItem(DISMISS_KEY, '1'); } catch (e) { /* ignore */ }
+  }
+  function showBanner() {
+    if (!banner || installed || isStandalone() || isDismissed()) return;
+    banner.classList.add('on');
+  }
+  function hideBanner() {
+    if (banner) banner.classList.remove('on');
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    banner = document.getElementById('installBanner');
+    btn = document.getElementById('installBtn');
+    closeBtn = document.getElementById('installClose');
+    textEl = document.getElementById('installText');
+    if (!banner) return;
+    if (isStandalone() || isDismissed()) return;
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () { hideBanner(); setDismissed(); });
+    }
+
+    if (btn) {
+      btn.addEventListener('click', function () {
+        if (deferred && deferred.prompt) {
+          var ev = deferred;
+          deferred = null;
+          try { ev.prompt(); } catch (e) { /* ignore */ }
+          var choice = ev.userChoice;
+          if (choice && typeof choice.then === 'function') {
+            choice.then(function (res) {
+              if (res && res.outcome === 'accepted') installed = true;
+              hideBanner();
+              setDismissed();
+            }).catch(function () { hideBanner(); setDismissed(); });
+          } else { hideBanner(); setDismissed(); }
+        } else {
+          hideBanner();
+          setDismissed();
+        }
+      });
+    }
+
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      deferred = e;
+      showBanner();
+    });
+
+    window.addEventListener('appinstalled', function () {
+      installed = true;
+      setDismissed();
+      hideBanner();
+    });
+
+    /* iOS는 설치 프롬프트 API가 없어 수동 안내로 대신한다 */
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPhone|iPad|iPod/.test(ua);
+    if (isIOS) {
+      if (textEl) textEl.innerHTML = '<b>홈 화면에 추가해 앱처럼 쓰기</b>아래 공유 버튼 → ‘홈 화면에 추가’';
+      if (btn) btn.style.display = 'none';
+      setTimeout(showBanner, 1800);
+    }
+  });
 })();
 </script>
 </body>

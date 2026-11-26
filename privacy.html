@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0c3b2a" />
+<meta name="robots" content="index,follow" />
+<title>개인정보처리방침 — 냉장고 파먹기 (냉장고AI)</title>
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<style>
+  :root{
+    --bg:#f2f7f2; --card:#fff; --ink:#12231a; --ink2:#2f4538; --sub:#6c8175;
+    --line:#e2ece5; --brand:#0f9d63; --brand-d:#0b7d4f; --mint:#e9faf1;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:radial-gradient(1000px 420px at 8% -8%, #e4f7ec 0%, rgba(228,247,236,0) 62%), var(--bg);
+    color:var(--ink); line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .top{background:linear-gradient(120deg,#0a3122 0%,#0d4631 58%,#106247 100%);color:#fff}
+  .top-inner{max-width:720px;margin:0 auto;padding:16px 18px;display:flex;align-items:center;gap:12px}
+  .top-inner .ico{width:38px;height:38px;border-radius:11px;display:block}
+  .top-inner b{font-size:15px;display:block;line-height:1.25}
+  .top-inner small{font-size:11.5px;color:#bfe8d2}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 18px 56px}
+  .doc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px 26px;box-shadow:0 8px 24px rgba(18,60,40,.06)}
+  h1{font-size:21px;margin:2px 0 6px;letter-spacing:-.02em}
+  .meta{font-size:12.5px;color:var(--sub);margin:0 0 18px}
+  h2{font-size:15.5px;margin:26px 0 8px;padding-top:4px;color:#0a3122}
+  h2:first-of-type{margin-top:20px}
+  p,li{font-size:14px;color:var(--ink2)}
+  p{margin:8px 0}
+  ul,ol{margin:8px 0;padding-left:20px}
+  li{margin:5px 0}
+  a{color:var(--brand-d);word-break:break-all}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;color:var(--ink2)}
+  th{background:var(--mint);color:#0a3122;font-weight:600;white-space:nowrap}
+  .box{background:var(--mint);border:1px solid #cdeedd;border-radius:13px;padding:12px 14px;margin:12px 0}
+  .box p{margin:4px 0;font-size:13.5px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;background:#f0f5f2;border-radius:5px;padding:1px 5px;color:#0b5b3c}
+  footer{margin:18px 2px 0;font-size:11.5px;color:#93a79a;text-align:center;line-height:1.8}
+  footer a{color:#6c8175}
+  @media (max-width:420px){th{white-space:normal}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <img class="ico" src="./icon-192.png" alt="냉장고AI 아이콘" width="38" height="38" />
+    <div>
+      <b>냉장고 파먹기 — AI 레시피·장보기 도우미</b>
+      <small>개인정보처리방침 · Privacy Policy</small>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="doc">
+    <h1>개인정보처리방침</h1>
+    <p class="meta">시행일 2026년 11월 26일 · 최종 개정일 2026년 11월 26일</p>
+
+    <p>‘냉장고 파먹기 — AI 레시피·장보기 도우미’(앱 이름 ‘냉장고AI’, 이하 “앱”)는 이용자의 개인정보를 소중히 다루며, 아래와 같이 개인정보처리방침을 두고 있습니다. 이 방침은 앱과 웹 주소 <a href="https://uuyt556-ux.github.io/fridge-ai-helper/" target="_blank" rel="noopener">https://uuyt556-ux.github.io/fridge-ai-helper/</a> 에 함께 적용됩니다.</p>
+
+    <div class="box">
+      <p><b>한눈에 보기</b></p>
+      <p>· 회원가입이 없고, 운영자의 서버·데이터베이스가 없습니다. 운영자는 이용자의 정보를 수집·보관하지 않습니다.</p>
+      <p>· 냉장고·식재료 사진은 레시피 분석을 위해서만 <b>Google Gemini API</b>로 전송되며, 앱과 운영자는 사진을 저장하지 않습니다.</p>
+      <p>· 입력한 Gemini API 키와 설정값은 이용자 기기의 브라우저(<code>localStorage</code>)에만 저장됩니다.</p>
+      <p>· 광고·분석(트래커) 도구를 쓰지 않으며, 위치·연락처 등 기기 정보를 수집하지 않습니다.</p>
+    </div>
+
+    <h2>1. 수집하는 정보와 이용 목적</h2>
+    <p>앱은 별도의 회원가입 절차가 없고 운영자의 서버로 아무 정보도 보내지 않습니다. 이용자가 앱 화면에서 직접 넣은 다음 정보만, 그 자리에서 기능을 수행하는 데 사용합니다.</p>
+    <table>
+      <thead>
+        <tr><th>항목</th><th>어디에 쓰나</th><th>어디에 저장되나</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>냉장고·식재료 사진 (이용자가 선택한 파일, 최대 3장)</td>
+          <td>사진 속 재료를 인식해 레시피와 장보기 목록을 만들기 위해 Google Gemini API로 전송</td>
+          <td>저장하지 않음. 브라우저 메모리에만 있다가 앱을 닫거나 새로고침하면 사라짐</td>
+        </tr>
+        <tr>
+          <td>재료·조건 입력값 (텍스트)</td>
+          <td>레시피 생성 요청 내용으로 사용</td>
+          <td>저장하지 않음 (화면을 닫으면 사라짐)</td>
+        </tr>
+        <tr>
+          <td>Gemini API 키 (이용자가 직접 발급·입력)</td>
+          <td>이용자 기기에서 Google Gemini API를 호출하기 위해</td>
+          <td>이용자가 ‘이 브라우저에 저장’을 체크한 경우에만 해당 기기 브라우저의 <code>localStorage</code></td>
+        </tr>
+        <tr>
+          <td>앱 설정값 (선택한 AI 모델, 무료 체험 횟수)</td>
+          <td>앱 화면 상태 유지</td>
+          <td>해당 기기 브라우저의 <code>localStorage</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>이 외에 이름·전화번호·이메일·주소·위치·연락처·사진첩 전체·결제정보 등을 요청하거나 수집하지 않습니다. 앱은 카메라나 사진첩에 직접 접근하지 않고, 이용자가 파일 선택 창에서 고른 파일만 읽습니다.</p>
+
+    <h2>2. 기기에 저장되는 정보(localStorage)</h2>
+    <p>앱은 서버 없이 동작하기 위해 아래 값만 이용자 브라우저에 저장합니다. 모두 이용자 기기 안에만 있으며 운영자에게 전송되지 않습니다.</p>
+    <ul>
+      <li><code>fridgeai.geminiKey.v1</code> — 이용자가 입력하고 저장을 선택한 Gemini API 키</li>
+      <li><code>fridgeai.model.v1</code> — 선택한 AI 모델 이름</li>
+      <li><code>fridgeai.saveKey.v1</code> — API 키 저장 여부 설정</li>
+      <li><code>fridgeai.freeLeft.v1</code> — 남은 무료 체험 횟수</li>
+      <li><code>fridgeai.installDismissed.v1</code> — 홈 화면 설치 안내 배너를 닫았는지 여부</li>
+    </ul>
+    <p>이 값들은 브라우저의 ‘인터넷 사용 기록/사이트 데이터 삭제’ 또는 앱 삭제로 언제든 직접 지울 수 있습니다.</p>
+
+    <h2>3. 제3자 제공 및 처리위탁</h2>
+    <p>앱은 레시피 분석을 위해 이용자가 넣은 사진과 재료 텍스트, 그리고 이용자의 API 키를 <b>Google LLC의 Gemini API</b>(<code>generativelanguage.googleapis.com</code>)로 전송합니다. 이는 이용자가 ‘레시피 받기’를 눌렀을 때만 일어나며, 해당 정보의 처리는 Google의 정책을 따릅니다.</p>
+    <ul>
+      <li>Google 개인정보처리방침: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a></li>
+      <li>Gemini API 약관: <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">https://ai.google.dev/gemini-api/terms</a></li>
+    </ul>
+    <p>앱은 위 목적 외에 개인정보를 제3자에게 판매·대여·제공하지 않습니다. 광고 네트워크, 분석 도구, 소셜 로그인을 사용하지 않습니다.</p>
+
+    <h2>4. 호스팅</h2>
+    <p>앱은 GitHub Pages(https://github.io)에서 정적 파일로 제공됩니다. 페이지를 여는 과정에서 접속 IP·브라우저 정보 등이 호스팅 사업자인 GitHub, Inc.의 서버에 기록될 수 있으며, 이는 GitHub의 개인정보처리방침(<a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">링크</a>)에 따라 처리됩니다. 운영자는 이 기록에 접근하거나 별도로 보관하지 않습니다.</p>
+
+    <h2>5. 보관 기간과 파기</h2>
+    <p>운영자는 이용자의 개인정보를 보관하지 않으므로 파기할 대상이 없습니다. 기기에 저장된 값(2항)은 이용자가 브라우저 데이터를 삭제하거나 앱을 삭제하는 즉시 사라집니다. 사진과 입력값은 요청 처리 후 남지 않습니다.</p>
+
+    <h2>6. 이용자의 권리</h2>
+    <ul>
+      <li>앱 설정 화면에서 저장된 API 키를 지우거나 ‘저장하지 않음’으로 바꿀 수 있습니다.</li>
+      <li>브라우저 설정에서 사이트 데이터를 삭제하면 저장된 값이 모두 지워집니다.</li>
+      <li>사진·재료 입력을 하지 않으면 어떤 정보도 외부로 전송되지 않습니다(데모 모드로 기능 체험 가능).</li>
+    </ul>
+
+    <h2>7. 아동의 개인정보</h2>
+    <p>앱은 만 14세 미만 아동을 주 대상으로 하지 않으며, 아동의 개인정보를 의도적으로 수집하지 않습니다. 아동이 이용하는 경우 보호자의 지도 아래 이용해 주세요.</p>
+
+    <h2>8. 안전성 확보 조치</h2>
+    <p>앱과 주소는 HTTPS로만 제공되며, API 키는 운영자 서버가 아닌 이용자 기기에만 있습니다. 다만 이용자가 API 키를 다른 사람과 공유하거나 공용 기기에서 저장한 경우 노출될 수 있으므로, 공용 기기에서는 저장하지 않기를 권합니다.</p>
+
+    <h2>9. AI 생성 결과의 한계</h2>
+    <p>레시피·장보기 목록은 AI가 만든 참고 정보입니다. 재료의 상태·유통기한·알레르기 정보는 조리 전에 반드시 직접 확인해 주세요. 이는 개인정보와 별개로 앱의 이용 조건에 해당합니다.</p>
+
+    <h2>10. 방침의 변경</h2>
+    <p>법령이나 서비스 내용이 바뀌면 이 페이지를 통해 개정 내용과 시행일을 알립니다. 중요한 변경이 있을 때는 앱 화면 또는 이 페이지에 미리 안내합니다.</p>
+
+    <h2>11. 문의처</h2>
+    <p>개인정보 관련 문의: <a href="mailto:uuyt556@gmail.com">uuyt556@gmail.com</a></p>
+    <p>운영: 냉장고AI 운영자 (개인 개발)</p>
+  </article>
+
+  <footer>
+    <a href="./">← 앱으로 돌아가기</a><br />
+    냉장고 파먹기 — AI 레시피·장보기 도우미 · 개인정보처리방침 v1.0 (2026-11-26)
+  </footer>
+</main>
+
+</body>
+</html>
